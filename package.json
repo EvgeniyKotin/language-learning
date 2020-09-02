@@ -4,7 +4,10 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "server": "nodemon app.js",
+    "client": "npm run start --prefix front",
+    "db": "D:/mongodb/bin/mongod.exe",
+    "dev": "concurrently \"npm run db\" \"npm run server\" \"npm run client\""
   },
   "repository": {
     "type": "git",
@@ -17,6 +20,12 @@
   },
   "homepage": "https://github.com/EvgeniyKotin/language-learning#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "config": "^3.3.1",
+    "express": "^4.17.1",
+    "mongoose": "^5.10.2"
+  },
+  "devDependencies": {
+    "concurrently": "^5.3.0",
+    "nodemon": "^2.0.4"
   }
 }
