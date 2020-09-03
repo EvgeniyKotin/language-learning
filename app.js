@@ -12,6 +12,12 @@ async function startServer() {
         useUnifiedTopology: true,
         useFindAndModify: false,
         useCreateIndex: true
+    }, (err) => {
+        if (err) {
+            throw err
+            return
+        }
+        console.log('Server have connected to database')
     })
     app.listen(PORT, () => {
         console.log(`Server is listening on port ${PORT}`)
