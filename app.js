@@ -6,6 +6,9 @@ const mongoose = require('mongoose')
 const PORT = config.get('port') || 3001
 const mongoUri = config.get('mongoUri')
 
+app.use(express.json({ extended: true }));
+app.use('/auth', require('./auth/User.route'))
+
 async function startServer() {
     await mongoose.connect(mongoUri, {
         useNewUrlParser: true,
