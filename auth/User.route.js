@@ -2,13 +2,14 @@ const express = require('express')
 const router = express.Router()
 const User = require('./User.model')
 
-router.post('/singup', (req, res) => {
+router.post('/singup', async (req, res) => {
     let newUser = new User
 
     newUser.name = req.body.name
     newUser.email = req.body.email
-    User.findOne({login: req.body.login}, (err, user) => {
+    await User.findOne({login: req.body.login}, (err, user) => {
         if(err) {
+            console.log(err)
             return res.status(500).send({err: 'Database error'})
         }
 
@@ -22,6 +23,7 @@ router.post('/singup', (req, res) => {
 
     newUser.save((err, user) => {
         if(err) {
+            console.log(err)
             return res.status(500).send({err: 'Database error'})
         }
 
@@ -31,7 +33,8 @@ router.post('/singup', (req, res) => {
 
 router.post('/login', (req, res) => {
     User.findOne({login: req.body.login}, (err, user) => {
-        if(err) {
+        if(err) {            
+            console.log(err)
             return res.status(500).send({err: 'Database error'})
         }
 
