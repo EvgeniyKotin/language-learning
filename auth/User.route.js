@@ -3,10 +3,15 @@ const router = express.Router()
 const User = require('./User.model')
 
 router.post('/singup', async (req, res) => {
+    if(!(req.body.name && req.body.login && req.body.password && req.body.email)) {
+        return res.status(400).send({err: 'Not full request'})
+    }
+
     let newUser = new User
 
     newUser.name = req.body.name
     newUser.email = req.body.email
+    req.body.login = req.body.login.toString().toLowerCase()
     await User.findOne({login: req.body.login}, (err, user) => {
         if(err) {
             console.log(err)
@@ -27,7 +32,7 @@ router.post('/singup', async (req, res) => {
             return res.status(500).send({err: 'Database error'})
         }
 
-        return res.status(201).send({message: 'User added successfully'})
+        return res.status(201).send({message: 'User added successfully', id: user.id})
     })
 })
 
